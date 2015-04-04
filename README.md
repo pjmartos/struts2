@@ -1,6 +1,10 @@
 This plugin leverages a cleaner, uniform URI-to-representation mapping in RESTful Struts2 applications, in combination with the struts2-rest-plugin.
 
-The negotiation plugin honors the Accept request header in order to return an appropriate response back to the client; that is, in order to obtain a representation in JSON, XML, etc for a given resource, is no longer necessary, nor recommended, to append a suffix .json, .xml, etc to the URI, as promoted by the struts2-rest-plugin. Instead, you are expected to include the Accept request header with a comma-separated list of the content types you'd like the response content to be delivered in, in order of preference. If no server-side handlers exist for none of the given content types, then the server must return a representation of the requested resource in any content type it supports.
+The negotiation plugin honors the <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.1">Accept request header</a> in order to return an appropriate response back to the client; that is, in order to obtain a representation in JSON, XML, etc for a given resource, is no longer necessary (in fact, discouraged) to append a suffix (.json, .xml, etc) to the URI, as promoted by the struts2-rest-plugin. Instead, you are expected to include the Accept request header with a comma-separated list of the content types you'd like the response content to be delivered in. If no server-side handlers exist for none of the given content types, then the server must return a representation of the requested resource in any content type it supports.
+
+<pre>Accept: application/json, application/xml</pre>
+
+Please notice that at this moment the logic for processing the Accept header is still quite primitive. As a matter of fact, this version of the plugin doesn't support wildcards or media parameters; for now, it just assumes the desired data types were given in order of preference.
 
 The classic struts2-rest-plugin includes handlers for the HTML, JSON and XML data types, named <b>html</b>, <b>json</b> and <b>xml</b>, respectively. To configure a handler for one of these content types, you just need to declare a constant in a struts.xml file. The next example shows the minimal set-up necessary to define the handler which will satisfy requests expecting a response in JSON format (application/json):
 
