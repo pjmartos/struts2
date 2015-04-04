@@ -26,8 +26,19 @@ The class <b>com.foo.bar.BazHandler</b> in the example is required to implement 
         public String getContentType() {
             return "application/whatever";
         }
+
+        public void toObject(Reader in, Object target) throws IOException {
+            // Code for unmarshalling from "whatever" would be here
+        }
+    
+        public String fromObject(Object obj, String resultCode, Writer stream) throws IOException {
+            // Code for representation logic (formatting to the "whatever" data type) would be here
+        }
         
-        // ...
+        public String getExtension() {
+            // Used for backwards compatibility with struts2-rest-plugin
+        }
+
     }
 </pre>
 
