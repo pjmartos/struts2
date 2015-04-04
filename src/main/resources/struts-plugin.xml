@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+    <bean type="com.opensymphony.xwork2.ActionProxyFactory" name="contentNegotiationDrivenRest"
+        class="es.pjmartos.struts2.rest.negotiation.ContentNegotiationDrivenRestActionProxyFactory" />
+    <bean type="org.apache.struts2.rest.ContentTypeHandlerManager" name="contentNegotiationDriven"
+        class="es.pjmartos.struts2.rest.negotiation.ContentNegotiationDrivenContentTypeHandlerManager" />
+</struts>
