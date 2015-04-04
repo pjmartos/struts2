@@ -4,15 +4,31 @@ The negotiation plugin honors the Accept request header in order to return an ap
 
 To configure a handler for a given content type, you just need to declare a constant in a struts.xml file. The next example shows the minimal set-up necessary to define the handler which will satisfy requests expecting a response in JSON format (application/json):
 
-<struts>
-    <constant name="struts.rest.negotiation.handlerOverride.application/json" value="json" />
-</struts>
+<pre>&lt;struts>
+    &lt;constant name="struts.rest.negotiation.handlerOverride.application/json" value="json" />
+&lt;/struts></pre>
 
-The struts2-rest-plugin includes handlers for the HTML, JSON and XML data types, named html, json and xml, respectively. In case you need to override the existing handlers or provide a custom one, you need to declare a corresponding bean, and a constant pointing to it. In the following example we declare a handler for the datatype application/whatever:
+The classic struts2-rest-plugin includes handlers for the HTML, JSON and XML data types, named <b>html</b>, <b>json</b> and <b>xml</b>, respectively. In case you need to override the existing handlers or provide a custom one, you need to declare a corresponding bean, and a constant pointing to it. In the following example we declare a handler for the datatype application/whatever:
 
-<struts>
-    <constant name="struts.rest.negotiation.handlerOverride.application/whatever" value="foo" />
-    <bean name="jsonp" type="org.apache.struts2.rest.handler.ContentTypeHandler" class="com.foo.bar.BazHandler" />
-</struts>
+<pre>&lt;struts>
+    &lt;constant name="struts.rest.negotiation.handlerOverride.application/whatever" value="foo" />
+    &lt;bean name="foo" type="org.apache.struts2.rest.handler.ContentTypeHandler"
+        class="com.foo.bar.BazHandler" />
+&lt;/struts></pre>
 
-The class com.foo.bar.BazHandler in the example is required to implement org.apache.struts2.rest.handler.ContentTypeHandler and return the appropriate value in its getContentType method. The plugin will ignore any charset information appended to the content type, as well as the case; that is, it will treat "application/whatever", "APPLICATION/WHATEVER", "application/whatever;charset=utf-8" or any other combinations in the same way. As show in the example, the plugin allows the handling of custom hypermedia types, as well as standard, well-known types such as XML, CSV, etc.
+The class <b>com.foo.bar.BazHandler</b> in the example is required to implement the interface <b>org.apache.struts2.rest.handler.ContentTypeHandler</b> and return the appropriate value in its <i>getContentType</i> method.
+
+<pre>
+    package com.foo.bar;
+    
+    public class BazHandler implements org.apache.struts2.rest.handler.ContentTypeHandler {
+        
+        public String getContentType() {
+            return "application/whatever";
+        }
+        
+        // ...
+    }
+</pre>
+
+The plugin will ignore any charset information appended to the content type in the String returned via the <i>getContentType</i> method, as well as the case; that is, it will treat "application/whatever", "APPLICATION/WHATEVER", "application/whatever;charset=utf-8" or any other combinations in the same way. As show in the example, the plugin allows the handling of custom hypermedia types, as well as standard, well-known types such as XML, CSV, etc.
